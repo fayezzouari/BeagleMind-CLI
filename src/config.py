@@ -52,7 +52,7 @@ class ConfigManager:
                 with open(self.path, "r") as f:
                     return json.load(f)
             except json.JSONDecodeError:
-                print("⚠️ Config file corrupted. Loading defaults.")
+                print(" Config file corrupted. Loading defaults.")
         else:
             # Create file if it doesn't exist
             self.save(self.default_config)

@@ -121,54 +121,57 @@ BEAGLEMIND_BANNER = """
 
 class BeagleMindCLI:
     def __init__(self):
-        self.qa_system = None
-        self.config = self.load_config()
+        # self.qa_system = None
+        # self.config = self.load_config()
+        self.config_manager = ConfigManager()
+        self.config = self.config_manager.config
+
         
-    def load_config(self) -> Dict[str, Any]:
-        """Load CLI configuration from file"""
-        default_config = {
-            "collection_name": COLLECTION_NAME,
-            "default_backend": "groq",
-            "default_model": GROQ_MODELS[0],
-            "default_temperature": 0.3,
-            "default_use_tools": False
-        }
+    # def load_config(self) -> Dict[str, Any]:
+    #     """Load CLI configuration from file"""
+    #     default_config = {
+    #         "collection_name": COLLECTION_NAME,
+    #         "default_backend": "groq",
+    #         "default_model": GROQ_MODELS[0],
+    #         "default_temperature": 0.3,
+    #         "default_use_tools": False
+    #     }
         
-        if os.path.exists(CLI_CONFIG_PATH):
-            try:
-                with open(CLI_CONFIG_PATH, 'r') as f:
-                    config = json.load(f)
-                    # Merge with defaults for any missing keys
-                    for key, value in default_config.items():
-                        if key not in config:
-                            config[key] = value
-                    return config
-            except Exception as e:
-                console.print(f"[yellow]Warning: Could not load config: {e}[/yellow]")
-                return default_config
-        else:
-            return default_config
+        # if os.path.exists(CLI_CONFIG_PATH):
+        #     try:
+        #         with open(CLI_CONFIG_PATH, 'r') as f:
+        #             config = json.load(f)
+        #             # Merge with defaults for any missing keys
+        #             for key, value in default_config.items():
+        #                 if key not in config:
+        #                     config[key] = value
+        #             return config
+        #     except Exception as e:
+        #         console.print(f"[yellow]Warning: Could not load config: {e}[/yellow]")
+        #         return default_config
+        # else:
+            # return default_config
     
-    def save_config(self):
-        """Save CLI configuration to file"""
-        try:
-            os.makedirs(os.path.dirname(CLI_CONFIG_PATH), exist_ok=True)
-            with open(CLI_CONFIG_PATH, 'w') as f:
-                json.dump(self.config, f, indent=2)
-        except Exception as e:
-            console.print(f"[yellow]Warning: Could not save config: {e}[/yellow]")
+    # def save_config(self):
+    #     """Save CLI configuration to file"""
+    #     try:
+    #         os.makedirs(os.path.dirname(CLI_CONFIG_PATH), exist_ok=True)
+    #         with open(CLI_CONFIG_PATH, 'w') as f:
+    #             json.dump(self.config, f, indent=2)
+    #     except Exception as e:
+    #         console.print(f"[yellow]Warning: Could not save config: {e}[/yellow]")
     
-    def get_qa_system(self):
-        """Get or create QA system instance"""
-        if not self.qa_system:
-            collection_name = self.config.get("collection_name", COLLECTION_NAME)
-            self.qa_system = QASystem(collection_name=collection_name)
-            # Initialize a fresh in-RAM conversation for this CLI session
-            try:
-                self.qa_system.start_conversation()
-            except Exception:
-                pass
-        return self.qa_system
+    # def get_qa_system(self):
+    #     """Get or create QA system instance"""
+    #     if not self.qa_system:
+    #         collection_name = self.config.get("collection_name", COLLECTION_NAME)
+    #         self.qa_system = QASystem(collection_name=collection_name)
+    #         # Initialize a fresh in-RAM conversation for this CLI session
+    #         try:
+    #             self.qa_system.start_conversation()
+    #         except Exception:
+    #             pass
+    #     return self.qa_system
     
     def list_models(self, backend: str = None):
         """List available models for specified backend or all backends"""
