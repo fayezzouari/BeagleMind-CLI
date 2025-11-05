@@ -125,7 +125,9 @@ class BeagleMindCLI:
         # self.qa_system = None
         # self.config = self.load_config()
         self.config_manager = ConfigManager()
-        self.config = self.config_manager.config
+        self.config_manager.get("default_model")
+        self.config_manager.set("default_model", "new_model")
+
 
         
     # def load_config(self) -> Dict[str, Any]:
