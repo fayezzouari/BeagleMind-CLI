@@ -9,7 +9,6 @@ import re
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 import click
-from config import ConfigManager
 from rich.console import Console
 from rich.table import Table
 from rich.markdown import Markdown
@@ -18,7 +17,6 @@ from rich.text import Text
 from rich.spinner import Spinner
 from rich.live import Live
 import time
-from config import ConfigManager
 
 from .qa_system import QASystem
 from .config import *
