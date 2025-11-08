@@ -18,8 +18,12 @@ logger = logging.getLogger(__name__)
 class OptimizedToolRegistry:
     """Optimized tool registry with comprehensive file and system operations"""
     
-    def __init__(self, base_directory: str = "/home/fayez/gsoc/rag_poc"):
-        self.base_directory = Path(base_directory)
+    def __init__(self, base_directory: Optional[str] = None):
+        # Use provided directory, or default to current working directory
+        if base_directory is None:
+            self.base_directory = Path.cwd()
+        else:
+            self.base_directory = Path(base_directory)
         self.base_directory.mkdir(exist_ok=True)
         
         # Machine identification
