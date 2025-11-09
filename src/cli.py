@@ -362,8 +362,8 @@ class BeagleMindCLI:
         # Create QA system if not exists
         if collection:
             # Recreate QA system with the requested collection
-            # self.config["collection_name"] = collection
-            self.config_manager["collection_name"] = collection #use setter here
+            # self.config["collection_name"] = collection #use setter here
+            self.config_manager.set("collection_name", collection)
             self.qa_system = None
         if not self.qa_system:
             self.qa_system = self.get_qa_system()
