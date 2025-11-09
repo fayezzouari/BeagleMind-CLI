@@ -33,12 +33,14 @@ class ConfigManager:
     def __init__(self, path="~/.beaglemind_config.json"):
         self.path = os.path.expanduser(path)
         self.default_config = {
-            "collection_name": "default_collection",
-            "default_backend": "groq",
-            "default_model": "mixtral-8x7b",
-            "default_temperature": 0.3,
-            "default_use_tools": False
-        }
+    "collection_name": "default_collection",
+    "default_backend": "groq",
+    "default_model": "mixtral-8x7b",
+    "default_temperature": 0.3,
+    "default_use_tools": False,
+    "available_backends": ["groq", "ollama", "openai"],
+    "available_models": ["mixtral-8x7b", "llama3-8b", "gpt-4o-mini"]
+    }
 
         self.config = self.load()
 

@@ -31,35 +31,35 @@ console = Console()
 CLI_CONFIG_PATH = os.path.expanduser("~/.beaglemind_cli_config.json")
 
 # Available models from gradio_app.py
-GROQ_MODELS = [
-    "llama-3.3-70b-versatile",
-    "llama-3.1-8b-instant", 
-    "gemma2-9b-it",
-    "meta-llama/llama-4-scout-17b-16e-instruct",
-    "meta-llama/llama-4-maverick-17b-128e-instruct", 
-    "deepseek-r1-distill-llama-70b"
-]
+# GROQ_MODELS = [
+#     "llama-3.3-70b-versatile",
+#     "llama-3.1-8b-instant", 
+#     "gemma2-9b-it",
+#     "meta-llama/llama-4-scout-17b-16e-instruct",
+#     "meta-llama/llama-4-maverick-17b-128e-instruct", 
+#     "deepseek-r1-distill-llama-70b"
+# ]
 
-OPENAI_MODELS = [
-    "gpt-4o",
-    "gpt-4o-mini", 
-    "gpt-4-turbo",
-    "gpt-3.5-turbo",
-    "o1-preview",
-    "o1-mini"
-]
+# OPENAI_MODELS = [
+#     "gpt-4o",
+#     "gpt-4o-mini", 
+#     "gpt-4-turbo",
+#     "gpt-3.5-turbo",
+#     "o1-preview",
+#     "o1-mini"
+# ]
 
-OLLAMA_MODELS = [
-    "huihui_ai/qwen2.5-coder-abliterate:0.5b",
-    "deepseek-r1:1.5b",
-    "smollm2:135m",
-    "smollm2:360m", 
-    "qwen3:1.7b",
-    "qwen2.5-coder:0.5b",
-    "gemma3:270m"
-]
+# OLLAMA_MODELS = [
+#     "huihui_ai/qwen2.5-coder-abliterate:0.5b",
+#     "deepseek-r1:1.5b",
+#     "smollm2:135m",
+#     "smollm2:360m", 
+#     "qwen3:1.7b",
+#     "qwen2.5-coder:0.5b",
+#     "gemma3:270m"
+# ]
 
-LLM_BACKENDS = ["groq", "openai", "ollama"]
+# LLM_BACKENDS = ["groq", "openai", "ollama"]
 
 # === Output cleaning to remove meta-thinking / chain-of-thought ===
 def clean_llm_response_text(response: str) -> str:
