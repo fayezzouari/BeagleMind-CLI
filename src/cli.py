@@ -167,17 +167,17 @@ class BeagleMindCLI:
     #     except Exception as e:
     #         console.print(f"[yellow]Warning: Could not save config: {e}[/yellow]")
     
-    # def get_qa_system(self):
-    #     """Get or create QA system instance"""
-    #     if not self.qa_system:
-    #         collection_name = self.config.get("collection_name", COLLECTION_NAME)
-    #         self.qa_system = QASystem(collection_name=collection_name)
-    #         # Initialize a fresh in-RAM conversation for this CLI session
-    #         try:
-    #             self.qa_system.start_conversation()
-    #         except Exception:
-    #             pass
-    #     return self.qa_system
+    def get_qa_system(self):
+        """Get or create QA system instance"""
+        if not self.qa_system:
+            collection_name = self.config.get("collection_name", COLLECTION_NAME)
+            self.qa_system = QASystem(collection_name=collection_name)
+            # Initialize a fresh in-RAM conversation for this CLI session
+            try:
+                self.qa_system.start_conversation()
+            except Exception:
+                pass
+        return self.qa_system
     
     def list_models(self, backend: str = None):
         """List available models for specified backend or all backends"""
