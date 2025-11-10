@@ -197,8 +197,8 @@ class BeagleMindCLI:
         if backend:
             backend = backend.lower()
             if backend == "groq":
-                # add_models_to_table("groq", GROQ_MODELS, "Cloud")
-                 
+                add_models_to_table("groq", self.config_manager.get("groq"), "Cloud") 
+                      
             elif backend == "openai":
                 add_models_to_table("openai", OPENAI_MODELS, "Cloud")
             elif backend == "ollama":

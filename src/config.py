@@ -29,6 +29,9 @@ COLLECTION_NAME = 'beagleboard'
 
 RAG_BACKEND_URL = 'https://mind-api.beagleboard.org/api'
 
+import os
+import json
+
 class ConfigManager:
     def __init__(self, path="~/.beaglemind_config.json"):
         self.path = os.path.expanduser(path)
@@ -38,8 +41,7 @@ class ConfigManager:
             "default_model": "llama-3.3-70b-versatile",
             "default_temperature": 0.3,
             "default_use_tools": False,
-
-            # Backend and model configurations moved here 
+            # Configuration metadata
             "available_backends": ["groq", "openai", "ollama"],
             "available_models": {
                 "groq": [
@@ -69,42 +71,53 @@ class ConfigManager:
                 ]
             }
         }
+
         self.config = self.load()
 
     def load(self):
-        # Load config from file, or create one if missing.
         if os.path.exists(self.path):
             try:
                 with open(self.path, "r") as f:
                     return json.load(f)
             except json.JSONDecodeError:
-                print(" Config file corrupted. Loading defaults.")
+                print("Config file corrupted. Loading defaults.")
         else:
-            # Create file if it doesn't exist
             self.save(self.default_config)
         return self.default_config.copy()
 
     def save(self, data=None):
-        # Save current or given config to disk.
         if data is None:
             data = self.config
         os.makedirs(os.path.dirname(self.path), exist_ok=True)
         with open(self.path, "w") as f:
             json.dump(data, f, indent=4)
 
-    def get(self, key, default =None):
+    def get(self, key, default=None):
         return self.config.get(key, self.default_config.get(key, default))
-    #small change added a default option in  the end too
 
     def set(self, key, value):
         self.config[key] = value
         self.save()
 
-    def set_backend(self,key,value):
-        if(key == "groq"):
-            self.config[key] = value
-        elif(key =="openai"):
-            self.config[key] = value
-        elif(key =="ollama"):
-            self.config[key] = value
-        self.save()
+    #Backend management
+    def get_backends(self):
+        return self.config.get("available_backends", self.default_config["available_backends"])
+
+    def get_models(self, backend):
+        models = self.config.get("available_models", {}).get(backend)
+        if not models:
+            # fallback to defaults if missing
+            models = self.default_config["available_models"].get(backend, [])
+        return models
+
+    def add_model(self, backend, model_name):
+        models = self.config.setdefault("available_models", {}).setdefault(backend, [])
+        if model_name not in models:
+            models.append(model_name)
+            self.save()
+
+    def remove_model(self, backend, model_name):
+        models = self.config.get("available_models", {}).get(backend, [])
+        if model_name in models:
+            models.remove(model_name)
+            self.save()
