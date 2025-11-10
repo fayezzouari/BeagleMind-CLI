@@ -171,7 +171,7 @@ class BeagleMindCLI:
         """Get or create QA system instance"""
         if not self.qa_system:
             # collection_name = self.config.get("collection_name", COLLECTION_NAME)
-            collection_name = self.config_manager.get("collection_name")
+            collection_name = self.config_manager.get("collection_name", COLLECTION_NAME)
             self.qa_system = QASystem(collection_name=collection_name)
             # Initialize a fresh in-RAM conversation for this CLI session
             try:
@@ -197,7 +197,8 @@ class BeagleMindCLI:
         if backend:
             backend = backend.lower()
             if backend == "groq":
-                add_models_to_table("groq", GROQ_MODELS, "Cloud")
+                # add_models_to_table("groq", GROQ_MODELS, "Cloud")
+                 
             elif backend == "openai":
                 add_models_to_table("openai", OPENAI_MODELS, "Cloud")
             elif backend == "ollama":
@@ -219,9 +220,9 @@ class BeagleMindCLI:
             # f"Backend: [cyan]{self.config.get('default_backend', 'groq').upper()}[/cyan]\n"
             # f"Model: [magenta]{self.config.get('default_model', GROQ_MODELS[0])}[/magenta]\n"
             # f"Temperature: [yellow]{self.config.get('default_temperature', 0.3)}[/yellow]",
-            f"Backend: [cyan]{self.config_manager.get('default_backend').upper()}[/cyan]\n"
-            f"Model: [magenta]{self.config_manager.get('default_model')}[/magenta]\n"
-            f"Temperature: [yellow]{self.config_manager.get('default_temperature')}[/yellow]",
+            f"Backend: [cyan]{self.config_manager.get('default_backend','groq').upper()}[/cyan]\n"
+            f"Model: [magenta]{self.config_manager.get('default_model',GROQ_MODELS[0])}[/magenta]\n"
+            f"Temperature: [yellow]{self.config_manager.get('default_temperature', 0.3)}[/yellow]",
             title="Current Configuration",
             border_style="blue"
         )
@@ -258,9 +259,9 @@ class BeagleMindCLI:
         # backend = backend or self.config.get("default_backend", "groq")
         # model = model or self.config.get("default_model", GROQ_MODELS[0])
         # temperature = temperature if temperature is not None else self.config.get("default_temperature", 0.3)
-        backend = backend or self.config_manager.get("default_backend")
-        model = model or self.config_manager.get("default_model")
-        temperature = temperature if temperature is not None else self.config_manager.get("default_temperature")
+        backend = backend or self.config_manager.get("default_backend", "groq")
+        model = model or self.config_manager.get("default_model", GROQ_MODELS[0])
+        temperature = temperature if temperature is not None else self.config_manager.get("default_temperature", 0.3)
     
         
         # Validate backend and model
@@ -372,9 +373,9 @@ class BeagleMindCLI:
         # backend = backend or self.config.get("default_backend", "groq")
         # model = model or self.config.get("default_model", GROQ_MODELS[0])
         # temperature = temperature if temperature is not None else self.config.get("default_temperature", 0.3)
-        backend = backend or self.config_manager.get("default_backend")
-        model = model or self.config_manager.get("default_model")
-        temperature = temperature if temperature is not None else self.config_manager.get("default_temperature")
+        backend = backend or self.config_manager.get("default_backend", "groq")
+        model = model or self.config_manager.get("default_model",GROQ_MODELS[0] )
+        temperature = temperature if temperature is not None else self.config_manager.get("default_temperature", 0.3)
         
         # Validate backend and model
         if backend not in LLM_BACKENDS:

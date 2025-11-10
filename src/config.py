@@ -99,3 +99,12 @@ class ConfigManager:
     def set(self, key, value):
         self.config[key] = value
         self.save()
+
+    def set_backend(self,key,value):
+        if(key == "groq"):
+            self.config[key] = value
+        elif(key =="openai"):
+            self.config[key] = value
+        elif(key =="ollama"):
+            self.config[key] = value
+        self.save()
